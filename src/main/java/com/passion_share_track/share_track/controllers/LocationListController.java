@@ -18,13 +18,14 @@ public class LocationListController {
     private LocationListRepository locationListRepository;
     private List<Location> locationsList = new ArrayList<>();
 
-
+    public LocationListController(List<Location> locationsList) {
+        this.locationsList = locationsList;
+    }
 
     @GetMapping("/locations")
-//    public List<Location> getLocations(){
-//        return locationsList;
-//    }
-    public String getLocation(){
-        return "over There";
+    public List<Location> getLocation(){
+        return locationsList;
     }
+
+
 }
