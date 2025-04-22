@@ -1,9 +1,9 @@
 package com.passion_share_track.share_track.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +11,20 @@ import java.util.List;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name= "LOCATION_ID")
     private Long id;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "STREET_ADDRESS")
     private String addressStreet;
+    @Column(name = "CITY")
     private String addressCity;
+    @Column(name = "STATE")
     private String addressState;
+    @Column(name = "ZIP_CODE")
     private String addressZip;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> inventory = new ArrayList<>();
 
     public Location(Long id,String name,String addressStreet, String addressCity,String addressState,String addressZip,  List<Item> inventory) {

@@ -1,29 +1,36 @@
 package com.passion_share_track.share_track.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name= "ITEM_ID")
     private Long id;
+    @Column(name= "TYPE")
     private String type;
+    @Column(name= "MODEL")
     private String model;
+    @Column(name= "BARCODE_NUMBER")
     private String barCodeNumber;
+    @Column(name= "IMAGE_URL")
     private String imageUrl;
-    private Long locationId;
+
+    //private Long locationId;
+    @ManyToOne
+    @JoinColumn(name = "LOCATION_ID")
+    private Location location;
 
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Long locationId) {
+    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Location locationId) {
         this.id = id;
         this.type = type;
         this.model = model;
         this.barCodeNumber = barCodeNumber;
         this.imageUrl = imageUrl;
-        this.locationId = locationId;
+        this.location = locationId;
     }
 
     public Item(){}
@@ -68,12 +75,12 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public Long getLocationId() {
-        return locationId;
+    public Location getLocationId() {
+        return location;
     }
 
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
+    public void setLocationId(Location locationId) {
+        this.location = locationId;
     }
 
 }

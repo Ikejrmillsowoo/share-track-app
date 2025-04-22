@@ -13,7 +13,8 @@ public class ItemTest {
         String model = "Yamaha MODX-8";
         String barCodeNumber = "123-456";
         String imageUrl = "/src/main/resources/keys";
-        Long locationId = 10L;
+
+        Location locationId = new Location();
 
         Item item = new Item(id, type, model, barCodeNumber, imageUrl, locationId);
 
@@ -23,7 +24,7 @@ public class ItemTest {
         String actualModel = item.getModel();
         String actualBarCodeNumber = item.getBarCodeNumber();
         String actualImageUrl = item.getImageUrl();
-        Long actualLocationId = item.getLocationId();
+        Location actualLocationId = item.getLocationId();
 
         //Then
         Assertions.assertEquals(id, actualId);

@@ -1,6 +1,5 @@
 package com.passion_share_track.share_track.repositories;
 
-import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.models.Location;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
