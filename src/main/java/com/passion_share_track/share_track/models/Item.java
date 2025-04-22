@@ -24,13 +24,13 @@ public class Item {
     private Location location;
 
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Location locationId) {
+    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Location location) {
         this.id = id;
         this.type = type;
         this.model = model;
         this.barCodeNumber = barCodeNumber;
         this.imageUrl = imageUrl;
-        this.location = locationId;
+        this.location = location;
     }
 
     public Item(){}
@@ -79,8 +79,8 @@ public class Item {
         return location;
     }
 
-    public void setLocationId(Location locationId) {
-        this.location = locationId;
+    public void setLocationId(Location location) {
+        this.location = location;
     }
 
 }

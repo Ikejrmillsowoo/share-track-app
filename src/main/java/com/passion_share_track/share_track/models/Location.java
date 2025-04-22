@@ -27,6 +27,10 @@ public class Location {
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> inventory = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "LOCATION_LIST_ID")
+    private LocationList locationList;
+
     public Location(Long id,String name,String addressStreet, String addressCity,String addressState,String addressZip,  List<Item> inventory) {
         this.inventory = inventory;
         this.addressZip = addressZip;
