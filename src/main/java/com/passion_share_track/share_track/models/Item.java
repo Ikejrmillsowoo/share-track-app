@@ -17,20 +17,21 @@ public class Item {
     private String barCodeNumber;
     @Column(name= "IMAGE_URL")
     private String imageUrl;
-
+    @Column(name="CURRENT_LOCATION_ID")
+    private Long locationId;
     //private Long locationId;
     @ManyToOne
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
 
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Location location) {
+    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Long location) {
         this.id = id;
         this.type = type;
         this.model = model;
         this.barCodeNumber = barCodeNumber;
         this.imageUrl = imageUrl;
-        this.location = location;
+        this.locationId = location;
     }
 
     public Item(){}
@@ -75,12 +76,12 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
-    public Location getLocationId() {
-        return location;
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public void setLocationId(Location location) {
-        this.location = location;
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
     }
 
 }

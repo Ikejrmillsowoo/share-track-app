@@ -2,14 +2,11 @@ package com.passion_share_track.share_track.controllers;
 
 import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.models.Location;
-import com.passion_share_track.share_track.repositories.LocationRepository;
+import com.passion_share_track.share_track.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
@@ -17,28 +14,40 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired
-    private  LocationRepository locationRepository;
+    private LocationService locationSvc;
     private List<Item> itemsList = new ArrayList<>();
 
+    public LocationController (LocationService locationService){this.locationSvc = locationService;}
 
-
-    @GetMapping("/location")
-    public List<Item> getLocations(){
-        return itemsList;
+    @GetMapping()
+    public ResponseEntity<Iterable<Location>> index(){
+        return new ResponseEntity<>(locationSvc.index(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Location> getItem(@PathVariable Long id){
+        Location item = locationSvc.show(id);
+        return new ResponseEntity<>(item, HttpStatus.OK);
+    }
 
+    @PostMapping()
+    public ResponseEntity<Location> create(@RequestBody Location location) {
+        Location newItem = locationSvc.create(location);
+        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+    }
 
-
-//    public ReponseEntity<Iterable><Location>> getLoacationList(){
-//        Iterable<Location> allLocations = locationRepository.findAll();
-//        return new ResponseEntity<>(allLocations, HttpStatus.OK);
-//    }
-
-
+    public ResponseEntity<Location> update(Long id, Location location) {
+        Location newLocation = locationSvc.update(id, location);
+        return new ResponseEntity<>(newLocation, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> destroy(@PathVariable Long id) {
+        Boolean deletedItem = locationSvc.delete(id);
+        return new ResponseEntity<>(deletedItem, HttpStatus.OK);
+    }
 
 }

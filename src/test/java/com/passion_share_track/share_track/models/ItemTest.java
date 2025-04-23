@@ -14,7 +14,7 @@ public class ItemTest {
         String barCodeNumber = "123-456";
         String imageUrl = "/src/main/resources/keys";
 
-        Location locationId = new Location();
+        Long locationId = 2L;
 
         Item item = new Item(id, type, model, barCodeNumber, imageUrl, locationId);
 
@@ -24,7 +24,7 @@ public class ItemTest {
         String actualModel = item.getModel();
         String actualBarCodeNumber = item.getBarCodeNumber();
         String actualImageUrl = item.getImageUrl();
-        Location actualLocationId = item.getLocationId();
+        Long actualLocationId = item.getLocationId();
 
         //Then
         Assertions.assertEquals(id, actualId);

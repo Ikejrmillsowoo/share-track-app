@@ -20,9 +20,9 @@ public class LocationTest {
         List<Item> inventory = new ArrayList<>();
 
         Location location = new Location( id, name, addressStreet, addressCity, addressState, addressZip, inventory);
-        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location);
-        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location);
-        Item speakers = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location);
+        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location.getId());
+        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location.getId());
+        Item speakers = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location.getId());
 
 
         inventory.add(keyboard);
@@ -56,9 +56,9 @@ public class LocationTest {
         String addressZip = "19702";
         List<Item> inventory = new ArrayList<>();
         Location location = new Location( id, name, addressStreet, addressCity, addressState, addressZip, inventory);
-        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location);
-        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location);
-        Item speaker = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location);
+        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location.getId());
+        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location.getId());
+        Item speaker = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location.getId());
 
 
         inventory.add(keyboard);
@@ -95,9 +95,9 @@ public class LocationTest {
         List<Item> inventory = new ArrayList<>();
         Location location = new Location( id, name, addressStreet, addressCity, addressState, addressZip, inventory);
 
-        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location);
-        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location);
-        Item speaker = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location);
+        Item keyboard = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location.getId());
+        Item bassGuitar = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location.getId());
+        Item speaker = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location.getId());
 
         inventory.add(keyboard);
         inventory.add(bassGuitar);
@@ -111,9 +111,9 @@ public class LocationTest {
         String addressZip2 = "19702";
         List<Item> inventory2 = new ArrayList<>();
         Location location2 = new Location( id2, name2, addressStreet2, addressCity2, addressState2, addressZip2, inventory2);
-        Item keyboard2 = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location);
-        Item bassGuitar2 = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location);
-        Item speaker2 = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location);
+        Item keyboard2 = new Item(1L, "keyboard", "MODX-8", "123", "/src/main/resources/keys", location2.getId());
+        Item bassGuitar2 = new Item(2L, "bass", "6 String Scepter Euro4XL", "321", "/src/main/resources/bass", location2.getId());
+        Item speaker2 = new Item(3L, "speaker", "JBL EON715", "789", "/src/main/resources/speakers", location2.getId());
 
 
         inventory.add(keyboard2);

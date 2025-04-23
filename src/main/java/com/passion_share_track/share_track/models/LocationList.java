@@ -11,7 +11,9 @@ public class LocationList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "LOCATION_LIST_ID")
     private Long id;
+
     @OneToMany(mappedBy = "locationList", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name= "LOCATIONS")
     private List<Location> locationList = new ArrayList<>();
 
 
