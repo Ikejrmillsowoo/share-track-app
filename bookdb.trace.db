@@ -125,3 +125,9 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 56 more
+2025-04-23 14:59:31.224304-04:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (ITEM: ""LOCATION_ID"" BIGINT)"; SQL statement:
+INSERT INTO "PUBLIC"."ITEM"("ITEM_ID","BARCODE_NUMBER","IMAGE_URL","MODEL","TYPE","LOCATION_ID","CURRENT_LOCATION_ID")VALUES(?,?,?,?,?,?,?) [22018-232]
+2025-04-23 14:59:31.239537-04:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (ITEM: ""LOCATION_ID"" BIGINT)"; SQL statement:
+INSERT INTO "PUBLIC"."ITEM"("ITEM_ID","BARCODE_NUMBER","IMAGE_URL","MODEL","TYPE","LOCATION_ID","CURRENT_LOCATION_ID")VALUES(?,?,?,?,?,?,?) [22018-232]

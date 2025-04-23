@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/location/item")
 public class ItemController {
 
    @Autowired
@@ -19,24 +19,24 @@ public class ItemController {
 
     public ItemController (ItemService itemService){this.itemService = itemService;}
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<Iterable<Item>> index(){
         return new ResponseEntity<>(itemService.index(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItem(@PathVariable Long id){
+    public ResponseEntity<Item> getItemById(@PathVariable Long id){
         Item item = itemService.show(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/add")
     public ResponseEntity<Item> create(@RequestBody Item item) {
         Item newItem = itemService.create(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
-
-    public ResponseEntity<Item> update(Long id, Item item) {
+    @PostMapping("/{id}")
+    public ResponseEntity<Item> update(@PathVariable Long id, @RequestBody Item item) {
         Item newItem = itemService.update(id, item);
         return new ResponseEntity<>(newItem, HttpStatus.OK);
     }
