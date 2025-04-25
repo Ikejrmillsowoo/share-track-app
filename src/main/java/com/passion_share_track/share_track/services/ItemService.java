@@ -12,6 +12,8 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
+
+
     public Iterable<Item> index() {
         return itemRepository.findAll();
     }

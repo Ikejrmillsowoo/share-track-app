@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 
 @RestController
-@RequestMapping("/location/item")
+@RequestMapping("/location/{locationId}/item")
 public class ItemController {
 
    @Autowired
@@ -20,13 +24,16 @@ public class ItemController {
     public ItemController (ItemService itemService){this.itemService = itemService;}
 
     @GetMapping
-    public ResponseEntity<Iterable<Item>> index(){
+    public ResponseEntity<Iterable<Item>> index(Model model){
+        System.out.println(itemService.index());
+        //model.addAttribute("items", Collections.singletonList(itemService.index()));
         return new ResponseEntity<>(itemService.index(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable Long id){
+    public ResponseEntity<Item> getItemById(@PathVariable Long id, Model model){
         Item item = itemService.show(id);
+        //model.addAttribute(item, Arrays.asList(item));
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 

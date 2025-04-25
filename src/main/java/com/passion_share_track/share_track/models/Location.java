@@ -99,4 +99,8 @@ public class Location {
         this.inventory = inventory;
     }
 
+    public void addToLocation(Item item){
+        this.inventory.add(item);
+    }
+
 }
