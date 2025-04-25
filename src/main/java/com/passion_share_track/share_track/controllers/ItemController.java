@@ -10,12 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
 
 
 @RestController
-@RequestMapping("/location/{locationId}/item")
+@RequestMapping("/location/item")
 public class ItemController {
 
    @Autowired
@@ -31,7 +29,7 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable Long id, Model model){
+    public ResponseEntity<Item> getItemById(@PathVariable Long id){
         Item item = itemService.show(id);
         //model.addAttribute(item, Arrays.asList(item));
         return new ResponseEntity<>(item, HttpStatus.OK);
