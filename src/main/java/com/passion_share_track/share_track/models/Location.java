@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Location {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "LOCATION_ID")
     private Long id;
     @Column(name = "NAME")

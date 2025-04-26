@@ -22,8 +22,8 @@ public class ItemController {
     public ItemController (ItemService itemService){this.itemService = itemService;}
 
     @GetMapping
-    public ResponseEntity<Iterable<Item>> index(Model model){
-        System.out.println(itemService.index());
+    public ResponseEntity<Iterable<Item>> index(){
+
         //model.addAttribute("items", Collections.singletonList(itemService.index()));
         return new ResponseEntity<>(itemService.index(), HttpStatus.OK);
     }
@@ -35,12 +35,19 @@ public class ItemController {
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
+    @GetMapping("/id/{locationid}")
+    public ResponseEntity<Iterable<Item>> getItemByLocation(@PathVariable Long locationid){
+
+       return new ResponseEntity<>(itemService.indexByLocation(locationid), HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Item> create(@RequestBody Item item) {
         Item newItem = itemService.create(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
-    @PostMapping("/{id}")
+
+    @PutMapping("/{id}")
     public ResponseEntity<Item> update(@PathVariable Long id, @RequestBody Item item) {
         Item newItem = itemService.update(id, item);
         return new ResponseEntity<>(newItem, HttpStatus.OK);

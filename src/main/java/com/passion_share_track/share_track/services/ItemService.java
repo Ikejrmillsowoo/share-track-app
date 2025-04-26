@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Component
 public class ItemService {
@@ -16,6 +18,9 @@ public class ItemService {
 
     public Iterable<Item> index() {
         return itemRepository.findAll();
+    }
+    public Iterable<Item> indexByLocation(Long locationId) {
+        return itemRepository.findByLocationId(locationId);
     }
 
     public Item show(Long id) {
@@ -38,7 +43,15 @@ public class ItemService {
     }
 
     public Boolean delete(Long id) {
-        itemRepository.deleteById(id);
-        return true;
+        Optional<Item> itemOptional = itemRepository.findById(id);
+
+        if (itemOptional.isPresent()) {
+            itemRepository.deleteById(id);
+            return true; // successfully deleted
+        } else {
+            return false; // no item found to delete
+        }
+       // itemRepository.deleteById(id);
+       //return true;
     }
 }
