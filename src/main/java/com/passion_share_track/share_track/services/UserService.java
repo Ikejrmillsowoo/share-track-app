@@ -19,9 +19,9 @@ public class UserService {
     public Iterable<User> index() {
         return userRepository.findAll();
     }
-//    public Iterable<User> indexByLocation(Long locationId) {
-//        return userRepository.findByLocationId(locationId);
-//    }
+    public Iterable<User> indexByLocation(Long locationId) {
+        return userRepository.findByLocationId(locationId);
+    }
 
     public User show(Long id) {
         return userRepository.findById(id).get();

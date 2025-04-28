@@ -1,6 +1,5 @@
 package com.passion_share_track.share_track.controllers;
 
-import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Iterable<User>> index(){
 
-        //model.addAttribute("items", Collections.singletonList(itemService.index()));
         return new ResponseEntity<>(userService.index(), HttpStatus.OK);
     }
 
@@ -33,11 +31,11 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-//    @GetMapping("/id/{locationid}")
-//    public ResponseEntity<Iterable<User>> getItemByLocation(@PathVariable Long locationid){
-//
-//        return new ResponseEntity<>(userService.indexByLocation(locationid), HttpStatus.OK);
-//    }
+    @GetMapping("/id/{locationid}")
+    public ResponseEntity<Iterable<User>> getItemByLocation(@PathVariable Long locationid){
+
+        return new ResponseEntity<>(userService.indexByLocation(locationid), HttpStatus.OK);
+    }
 
     @PostMapping("/addUser")
     public ResponseEntity<User> create(@RequestBody User user) {

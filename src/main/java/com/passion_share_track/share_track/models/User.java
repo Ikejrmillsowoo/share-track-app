@@ -3,9 +3,10 @@ package com.passion_share_track.share_track.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "APP_USER")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long id;
     @Column(name = "FIRST_NAME")
@@ -15,7 +16,7 @@ public class User {
     @Column(name = "USER_ROLE")
     private String userRole;
 
-    @Column(name = "LOCATION_ID")
+    @Column(name = "USER_LOCATION_ID")
     private Long locationId;
 
     public User(Long id, String firstName, String lastName, String userRole, Long locationId) {
