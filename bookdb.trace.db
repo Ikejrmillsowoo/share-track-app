@@ -560,3 +560,20 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 16 more
+2025-04-27 21:32:30.256376-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000a    create table [*]user (\000a        user_id bigint not null,\000a        first_name varchar(255),\000a        last_name varchar(255),\000a        location_id bigint,\000a        user_role varchar(255),\000a        primary key (user_id)\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+        user_id bigint not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        location_id bigint,
+        user_role varchar(255),
+        primary key (user_id)
+    ) [42001-232]
+2025-04-27 21:33:10.201243-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select u1_0.user_id,u1_0.first_name,u1_0.last_name,u1_0.location_id,u1_0.user_role from [*]user u1_0"; expected "identifier"; SQL statement:
+select u1_0.user_id,u1_0.first_name,u1_0.last_name,u1_0.location_id,u1_0.user_role from user u1_0 [42001-232]
+2025-04-27 21:35:42.352471-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select u1_0.user_id,u1_0.first_name,u1_0.last_name,u1_0.location_id,u1_0.user_role from [*]user u1_0"; expected "identifier"; SQL statement:
+select u1_0.user_id,u1_0.first_name,u1_0.last_name,u1_0.location_id,u1_0.user_role from user u1_0 [42001-232]
