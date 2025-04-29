@@ -37,6 +37,8 @@ public class UserService {
         originalUser.setLastName(newUserData.getLastName());
         originalUser.setUserRole(newUserData.getUserRole());
         originalUser.setLocationId(newUserData.getLocationId());
+        originalUser.setUsername(newUserData.getUsername());
+        originalUser.setPassword(newUserData.getPassword());
         return userRepository.save(originalUser);
     }
 

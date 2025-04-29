@@ -15,7 +15,10 @@ public class User {
     private String lastName;
     @Column(name = "USER_ROLE")
     private String userRole;
-
+    @Column(name = "USER_NAME")
+    private String username;
+    @Column(name = "PASSWORD")
+    private String password;
     @Column(name = "USER_LOCATION_ID")
     private Long locationId;
 
@@ -67,5 +70,21 @@ public class User {
 
     public void setLocationId(Long locationId) {
         this.locationId = locationId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
