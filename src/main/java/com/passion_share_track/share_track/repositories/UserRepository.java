@@ -5,7 +5,11 @@ import com.passion_share_track.share_track.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByLocationId(Long locationid);
+    Optional<User> findByUserId(User userId);
+
+    User findByUserName(String username);
 }
