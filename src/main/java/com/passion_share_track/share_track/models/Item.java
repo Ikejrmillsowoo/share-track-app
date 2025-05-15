@@ -17,6 +17,10 @@ public class Item {
     private String barCodeNumber;
     @Column(name= "IMAGE_URL")
     private String imageUrl;
+    @Column(name = "COUNT")
+    private Integer count;
+    @Column(name = "COUNT_AVAILABLE")
+    private Integer countAvailable;
     @Column(name="CURRENT_LOCATION_ID")
     private Long locationId;
     //private Long locationId;
@@ -25,12 +29,14 @@ public class Item {
     private Location location;
 
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Long location) {
+    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Long location) {
         this.id = id;
         this.type = type;
         this.model = model;
         this.barCodeNumber = barCodeNumber;
         this.imageUrl = imageUrl;
+        this.count = count;
+        this.countAvailable = countAvailable;
         this.locationId = location;
     }
 
@@ -83,5 +89,22 @@ public class Item {
     public void setLocationId(Long locationId) {
         this.locationId = locationId;
     }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getCountAvailable() {
+        return countAvailable;
+    }
+
+    public void setCountAvailable(Integer countAvailable) {
+        this.countAvailable = countAvailable;
+    }
+
 
 }

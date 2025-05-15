@@ -39,6 +39,8 @@ public class ItemService {
         originalItem.setBarCodeNumber(newItemData.getBarCodeNumber());
         originalItem.setModel(newItemData.getModel());
         originalItem.setLocationId(newItemData.getLocationId());
+        originalItem.setCount(newItemData.getCount());
+        originalItem.setCountAvailable(newItemData.getCountAvailable());
         return itemRepository.save(originalItem);
     }
 
