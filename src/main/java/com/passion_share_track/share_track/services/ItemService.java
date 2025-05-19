@@ -32,7 +32,7 @@ public class ItemService {
     }
 
     public Item update(Long id, Item newItemData) {
-        Item originalItem = itemRepository.findById(id).get();
+        Item originalItem = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found with ID: " + id));
         originalItem.setType(newItemData.getType());
         originalItem.setModel(newItemData.getModel());
         originalItem.setImageUrl(newItemData.getImageUrl());

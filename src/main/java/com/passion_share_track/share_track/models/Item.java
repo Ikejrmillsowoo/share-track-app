@@ -23,7 +23,7 @@ public class Item {
     private Integer countAvailable;
     @Column(name="CURRENT_LOCATION_ID")
     private Long locationId;
-    //private Long locationId;
+
     @ManyToOne
     @JoinColumn(name = "LOCATION_ID")
     private Location location;

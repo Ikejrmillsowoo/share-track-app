@@ -42,7 +42,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Item> create(@RequestBody Item item) {
+    public ResponseEntity<Item> create(@ModelAttribute Item item) {
         Item newItem = itemService.create(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
