@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 
 
 @RestController
@@ -41,11 +43,26 @@ public class ItemController {
        return new ResponseEntity<>(itemService.indexByLocation(locationid), HttpStatus.OK);
     }
 
+//    @PostMapping("/add")
+//    public ResponseEntity<Item> create(@ModelAttribute Item item) {
+//        Item newItem = itemService.create(item);
+//        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+//    }
+
     @PostMapping("/add")
-    public ResponseEntity<Item> create(@ModelAttribute Item item) {
-        Item newItem = itemService.create(item);
-        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+    public ResponseEntity<Item> addItem(
+            @RequestParam("type") String type,
+            @RequestParam("model") String model,
+            @RequestParam("barCodeNumber") String barCodeNumber,
+            @RequestParam("count") int count,
+            @RequestParam("countAvailable") int countAvailable,
+            @RequestParam("image") MultipartFile imageFile
+    ) throws IOException {
+
+        Item savedItem = itemService.create(type, model, barCodeNumber, count, countAvailable, imageFile);
+        return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Item> update(@PathVariable Long id, @RequestBody Item item) {

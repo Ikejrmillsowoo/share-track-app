@@ -5,7 +5,13 @@ import com.passion_share_track.share_track.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Service
@@ -27,7 +33,25 @@ public class ItemService {
         return itemRepository.findById(id).get();
     }
 
-    public Item create(Item item) {
+//    public Item create(Item item) {
+//        return itemRepository.save(item);
+//    }
+
+    public Item create(String type, String model, String barCodeNumber, int count, int countAvailable, MultipartFile imageFile) throws IOException {
+        // 1. Save image file to static folder
+        String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+        Path imagePath = Paths.get("src/main/resources/static/images/" + fileName);
+        Files.copy(imageFile.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+
+        // 2. Create and save item
+        Item item = new Item();
+        item.setType(type);
+        item.setModel(model);
+        item.setBarCodeNumber(barCodeNumber);
+        item.setCount(count);
+        item.setCountAvailable(countAvailable);
+        item.setImageUrl("/images/" + fileName);
+
         return itemRepository.save(item);
     }
 
