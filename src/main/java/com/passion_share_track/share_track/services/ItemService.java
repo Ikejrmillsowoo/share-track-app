@@ -40,8 +40,11 @@ public class ItemService {
     public Item create(String type, String model, String barCodeNumber, int count, int countAvailable, MultipartFile imageFile) throws IOException {
         // 1. Save image file to static folder
         String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-        Path imagePath = Paths.get("src/main/resources/static/images/" + fileName);
+//        Path imagePath = Paths.get("src/main/resources/static/images/" + fileName);
+        Path imagePath = Paths.get("target/classes/static/images/" + fileName);
         Files.copy(imageFile.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+
+
 
         // 2. Create and save item
         Item item = new Item();
@@ -50,7 +53,7 @@ public class ItemService {
         item.setBarCodeNumber(barCodeNumber);
         item.setCount(count);
         item.setCountAvailable(countAvailable);
-        item.setImageUrl("/images/" + fileName);
+        item.setImageUrl("images/" + fileName);
 
         return itemRepository.save(item);
     }
