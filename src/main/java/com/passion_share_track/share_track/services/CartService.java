@@ -1,11 +1,14 @@
 package com.passion_share_track.share_track.services;
 
 import com.passion_share_track.share_track.models.Cart;
+import com.passion_share_track.share_track.models.CartItem;
+import com.passion_share_track.share_track.repositories.CartItemRepository;
 import com.passion_share_track.share_track.repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,7 +16,10 @@ import java.util.Optional;
 public class CartService {
 
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
     public Iterable<Cart> index() {
         return cartRepository.findAll();
@@ -34,6 +40,37 @@ public class CartService {
 //        originalCart.setUserRole(newUserData.getUserRole());
 //        originalCart.setLocationId(newUserData.getLocationId());
         return cartRepository.save(originalCart);
+    }
+    //create new cart
+    public Cart createCart(Long userId, Long locationId){
+        Cart cart = new Cart();
+        cart.setUserId(userId);
+        cart.setCartLocationId(locationId);
+        return cartRepository.save(cart);
+    }
+
+    // add item to cart
+    public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        CartItem item = new CartItem(itemId, quantity, cart);
+        cart.getItems().add(item); // this sets up the bidirectional relationship
+
+        cartRepository.save(cart); // cascades to CartItem
+        return cart;
+    }
+
+    //get user's Cart
+    public Cart getCartByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
+    }
+
+    //list all cart Items
+    public List<CartItem> getItemsInCart(Long cartId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        return cart.getItems();
     }
 
     public Boolean delete(Long id) {
