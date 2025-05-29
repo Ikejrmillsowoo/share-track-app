@@ -1,5 +1,7 @@
 package com.passion_share_track.share_track.controllers;
 
+import com.passion_share_track.share_track.DTO.UserLoginDTO;
+import com.passion_share_track.share_track.DTO.UserRegistrationDTO;
 import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,22 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user) {
         User newUser = userService.create(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
+        User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+        if (user != null){
+            return ResponseEntity.ok(user);
+        } else {
+            return  ResponseEntity.status(401).body("Invalid credentials");
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserRegistrationDTO userRegistrationDTO){
+        User savedUser = userService.register(userRegistrationDTO);
+        return ResponseEntity.ok(savedUser);
     }
 
     @PutMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.passion_share_track.share_track.services;
 
+import com.passion_share_track.share_track.DTO.UserRegistrationDTO;
 import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.repositories.UserRepository;
@@ -50,6 +51,17 @@ public class UserService  {
         return userRepository.save(originalUser);
     }
 
+    public User register(UserRegistrationDTO userRegistrationDTO){
+        User user = new User();
+        user.setFirstName(userRegistrationDTO.getFirstName());
+        user.setLastName(userRegistrationDTO.getLastName());
+        user.setUsername(userRegistrationDTO.getUsername());
+        user.setPassword(userRegistrationDTO.getPassword()); // ⚠️ plaintext for now
+        user.setUserRole(userRegistrationDTO.getUserRole());
+        user.setLocationId(userRegistrationDTO.getLocationId());
+        return userRepository.save(user);
+    }
+
     public Boolean delete(Long id) {
         Optional<User> itemOptional = userRepository.findById(id);
 
@@ -59,6 +71,10 @@ public class UserService  {
         } else {
             return false; // no item found to delete
         }
+    }
+
+    public User login(String username, String password){
+        return userRepository.findByUsernameAndPassword(username, password);
     }
 
 //    @Override
