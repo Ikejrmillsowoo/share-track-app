@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cart")
@@ -17,8 +18,8 @@ public class CartController {
     private CartService cartService;
     //create a new cart
     @PostMapping("/create")
-    public ResponseEntity<Cart> createCart(@RequestParam Long userId, @RequestParam Long locationId){
-        Cart newCart = cartService.createCart(userId, locationId);
+    public ResponseEntity<Cart> createCart(@RequestParam Long userId){
+        Cart newCart = cartService.createCart(userId);
         return ResponseEntity.ok(newCart);
     }
 
@@ -34,8 +35,8 @@ public class CartController {
 
     // get a user's cart
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Cart> getCartByUser(@RequestParam Long userId){
-        Cart cart = cartService.getCartByUserId(userId);
+    public ResponseEntity<Optional<Cart>> getCartByUser(@RequestParam Long userId){
+        Optional<Cart> cart = cartService.getCartByUserId(userId);
         return ResponseEntity.ok(cart);
     }
 

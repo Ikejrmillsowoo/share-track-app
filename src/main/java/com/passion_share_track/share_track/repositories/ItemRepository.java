@@ -12,5 +12,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     //Find all items by location Id
-    List<Item> findByLocationId(Long locationid);
+//    List<Item> findByLocationId(Long locationid);
 }

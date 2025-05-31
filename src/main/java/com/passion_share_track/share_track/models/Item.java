@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "ITEM_ID")
     private Long id;
     @Column(name= "TYPE")
@@ -21,15 +21,20 @@ public class Item {
     private Integer count;
     @Column(name = "COUNT_AVAILABLE")
     private Integer countAvailable;
-    @Column(name="CURRENT_LOCATION_ID")
-    private Long locationId;
 
     @ManyToOne
-    @JoinColumn(name = "LOCATION_ID")
+    @JoinColumn(name="CURRENT_LOCATION_ID")
     private Location location;
 
+//    @Column(name="HOME_LOCATION_ID")
+    @ManyToOne
+    @JoinColumn(name = "HOME_LOCATION_ID")
+    private Location homeLocation;
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Long location) {
+
+
+
+    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Location location, Location homeLocation) {
         this.id = id;
         this.type = type;
         this.model = model;
@@ -37,7 +42,8 @@ public class Item {
         this.imageUrl = imageUrl;
         this.count = count;
         this.countAvailable = countAvailable;
-        this.locationId = location;
+        this.location = location;
+        this.homeLocation = homeLocation;
     }
 
     public Item(){}
@@ -83,11 +89,11 @@ public class Item {
     }
 
     public Long getLocationId() {
-        return locationId;
+        return location.getId();
     }
 
     public void setLocationId(Long locationId) {
-        this.locationId = locationId;
+        this.location.setId(locationId);
     }
 
     public Integer getCount() {
@@ -106,5 +112,19 @@ public class Item {
         this.countAvailable = countAvailable;
     }
 
+    public Location getLocation() {
+        return location;
+    }
 
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Location getHomeLocation() {
+        return homeLocation;
+    }
+
+    public void setHomeLocation(Location homeLocation) {
+        this.homeLocation = homeLocation;
+    }
 }

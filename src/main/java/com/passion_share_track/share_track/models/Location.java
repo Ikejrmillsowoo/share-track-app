@@ -24,15 +24,15 @@ public class Location {
     @Column(name = "ZIP_CODE")
     private String addressZip;
 
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> inventory = new ArrayList<>();
+//    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Item> inventory = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "LOCATION_LIST_ID")
     private LocationList locationList;
 
-    public Location(Long id,String name,String addressStreet, String addressCity,String addressState,String addressZip,  List<Item> inventory) {
-        this.inventory = inventory;
+    public Location(Long id,String name,String addressStreet, String addressCity,String addressState,String addressZip) {
+//        this.inventory = inventory;
         this.addressZip = addressZip;
         this.addressState = addressState;
         this.addressCity = addressCity;
@@ -91,16 +91,16 @@ public class Location {
         this.addressZip = addressZip;
     }
 
-    public List<Item> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(List<Item> inventory) {
-        this.inventory = inventory;
-    }
-
-    public void addToLocation(Item item){
-        this.inventory.add(item);
-    }
+//    public List<Item> getInventory() {
+//        return inventory;
+//    }
+//
+//    public void setInventory(List<Item> inventory) {
+//        this.inventory = inventory;
+//    }
+//
+//    public void addToLocation(Item item){
+//        this.inventory.add(item);
+//    }
 
 }

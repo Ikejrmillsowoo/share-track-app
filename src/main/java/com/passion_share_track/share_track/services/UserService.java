@@ -1,7 +1,6 @@
 package com.passion_share_track.share_track.services;
 
 import com.passion_share_track.share_track.DTO.UserRegistrationDTO;
-import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -28,8 +26,9 @@ public class UserService  {
     public Iterable<User> index() {
         return userRepository.findAll();
     }
-    public Iterable<User> indexByLocation(Long locationId) {
-        return userRepository.findByLocationId(locationId);
+    public Optional<User> indexByLocation(Long locationId) {
+//        return userRepository.findByLocationId(locationId);
+        return userRepository.findById(locationId);
     }
 
     public User show(Long id) {
@@ -73,9 +72,9 @@ public class UserService  {
         }
     }
 
-    public User login(String username, String password){
-        return userRepository.findByUsernameAndPassword(username, password);
-    }
+//    public User login(String username, String password){
+//        return userRepository.findByUsernameAndPassword(username, password);
+//    }
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

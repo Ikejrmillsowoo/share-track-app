@@ -11,8 +11,9 @@ public class CartItem {
     @Column(name = "CART_ITEM_ID")
     private Long id;
 
-    @Column(name = "ITEM_ID")
-    private Long itemId; // This refers to the inventory item
+    @OneToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item; // This refers to the inventory item
 
     @Column(name = "QUANTITY")
     private int quantity;
@@ -24,8 +25,8 @@ public class CartItem {
     // Constructors
     public CartItem() {}
 
-    public CartItem(Long itemId, int quantity, Cart cart) {
-        this.itemId = itemId;
+    public CartItem(Item item, int quantity, Cart cart) {
+        this.item = item;
         this.quantity = quantity;
         this.cart = cart;
     }
@@ -33,8 +34,8 @@ public class CartItem {
     // Getters and Setters
     public Long getId() { return id; }
 
-    public Long getItemId() { return itemId; }
-    public void setItemId(Long itemId) { this.itemId = itemId; }
+    public Item getItem() { return item; }
+    public void setItem(Item item) { this.item = item; }
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }

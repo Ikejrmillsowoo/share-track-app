@@ -40,7 +40,8 @@ public class ItemController {
     @GetMapping("/id/{locationid}")
     public ResponseEntity<Iterable<Item>> getItemByLocation(@PathVariable Long locationid){
 
-       return new ResponseEntity<>(itemService.indexByLocation(locationid), HttpStatus.OK);
+//       return new ResponseEntity<>(itemService.indexByLocation(locationid), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //    @PostMapping("/add")

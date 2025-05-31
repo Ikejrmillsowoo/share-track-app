@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{locationid}")
-    public ResponseEntity<Iterable<User>> getItemByLocation(@PathVariable Long locationid){
+    public ResponseEntity<Optional<User>> getItemByLocation(@PathVariable Long locationid){
 
         return new ResponseEntity<>(userService.indexByLocation(locationid), HttpStatus.OK);
     }
@@ -45,15 +47,15 @@ public class UserController {
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
-        User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
-        if (user != null){
-            return ResponseEntity.ok(user);
-        } else {
-            return  ResponseEntity.status(401).body("Invalid credentials");
-        }
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
+//        User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+//        if (user != null){
+//            return ResponseEntity.ok(user);
+//        } else {
+//            return  ResponseEntity.status(401).body("Invalid credentials");
+//        }
+//    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationDTO userRegistrationDTO){

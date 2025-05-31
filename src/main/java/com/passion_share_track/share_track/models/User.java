@@ -19,15 +19,18 @@ public class User {
     private String username;
     @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "USER_LOCATION_ID")
-    private Long locationId;
 
-    public User(Long id, String firstName, String lastName, String userRole, Long locationId) {
-        this.id = id;
+    @ManyToOne
+    @JoinColumn(name = "USER_LOCATION_ID")
+    private Location location;
+
+    public User( String firstName, String lastName, String userRole, String username, String password, Location location) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userRole = userRole;
-        this.locationId = locationId;
+        this.username = username;
+        this.password = password;
+        this.location = location;
     }
 
     public User(){}
@@ -65,11 +68,11 @@ public class User {
     }
 
     public Long getLocationId() {
-        return locationId;
+        return location.getId();
     }
 
     public void setLocationId(Long locationId) {
-        this.locationId = locationId;
+        this.location.setId(locationId);
     }
 
     public String getUsername() {

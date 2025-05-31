@@ -42,35 +42,35 @@ public class CartService {
         return cartRepository.save(originalCart);
     }
     //create new cart
-    public Cart createCart(Long userId, Long locationId){
+    public Cart createCart(Long userId){
         Cart cart = new Cart();
         cart.setUserId(userId);
-        cart.setCartLocationId(locationId);
         return cartRepository.save(cart);
     }
 
     // add item to cart
     public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
-
-        CartItem item = new CartItem(itemId, quantity, cart);
-        cart.getItems().add(item); // this sets up the bidirectional relationship
-
-        cartRepository.save(cart); // cascades to CartItem
+       Cart cart = cartRepository.findById(cartId)
+               .orElseThrow(() -> new RuntimeException("Cart not found"));
+//
+//        CartItem item = new CartItem(itemId, quantity, cart);
+//        cart.().add(item); // this sets up the bidirectional relationship
+//
+//        cartRepository.save(cart); // cascades to CartItem
         return cart;
     }
 
     //get user's Cart
-    public Cart getCartByUserId(Long userId) {
-        return cartRepository.findByUserId(userId);
+    public Optional<Cart> getCartByUserId(Long userId) {
+        return cartRepository.findById(userId);
     }
 
     //list all cart Items
     public List<CartItem> getItemsInCart(Long cartId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
-        return cart.getItems();
+//        Cart cart = cartRepository.findById(cartId)
+//                .orElseThrow(() -> new RuntimeException("Cart not found"));
+//        return cart.getItems();
+        return null;
     }
 
     public Boolean delete(Long id) {

@@ -25,8 +25,8 @@ public class ItemService {
     public Iterable<Item> index() {
         return itemRepository.findAll();
     }
-    public Iterable<Item> indexByLocation(Long locationId) {
-        return itemRepository.findByLocationId(locationId);
+    public Optional<Item> indexByLocation(Long locationId) {
+        return itemRepository.findById(locationId);
     }
 
     public Item show(Long id) {

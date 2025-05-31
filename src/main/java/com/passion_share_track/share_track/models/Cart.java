@@ -8,37 +8,46 @@ import java.util.List;
 @Entity
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CART_ID")
     private Long id;
-    @Column(name = "USER_ID")
-    private  Long userId;
-    @Column(name = "CART_LOCATION_ID")
-    private  Long cartLocationId;
 
-    public Long getCartLocationId() {
-        return cartLocationId;
-    }
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private  User user;
+//    @Column(name = "CART_LOCATION_ID")
+//    private Long cartLocationId;
 
-    public void setCartLocationId(Long cartLocationId) {
-        this.cartLocationId = cartLocationId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "CART_ITEM_ID")
+    private CartItem cartItem;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> items = new ArrayList<>();
+//    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<CartItem> items = new ArrayList<>();
+
+//    public Long getCartLocationId() {
+//        return cartLocationId;
+//    }
+//
+//    public void setCartLocationId(Long cartLocationId) {
+//        this.cartLocationId = cartLocationId;
+//    }
+
+
 
     // Include getters and setters for items
-    public List<CartItem> getItems() {
-        return items;
-    }
+//    public List<CartItem> getItems() {
+//        return items;
+//    }
+//
+//    public void setItems(List<CartItem> items) {
+//        this.items = items;
+//    }
 
-    public void setItems(List<CartItem> items) {
-        this.items = items;
-    }
 
-    public Cart(Long id, Long userId) {
-        this.id = id;
-        this.userId = userId;
+    public Cart( User user, CartItem cartItem) {
+        this.user = user;
+        this.cartItem = cartItem;
     }
 
     public Cart(){}
@@ -52,10 +61,25 @@ public class Cart {
     }
 
     public Long getUserId() {
-        return userId;
+        return user.getId();
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.user.setId(userId);
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public CartItem getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
     }
 }
