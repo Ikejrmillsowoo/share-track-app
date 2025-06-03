@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +27,14 @@ public class ItemService {
     public Iterable<Item> index() {
         return itemRepository.findAll();
     }
-    public Optional<Item> indexByLocation(Long locationId) {
-        return itemRepository.findById(locationId);
+    public List<Item> indexByLocation(Long locationId) {
+        List<Item> itemList = new ArrayList<>();
+       for (Item item : itemRepository.findAll()){
+           if (item.getLocationId() != null && item.getLocationId().equals(locationId)){
+                itemList.add(item);
+           }
+       }
+       return itemList;
     }
 
     public Item show(Long id) {
@@ -66,6 +74,7 @@ public class ItemService {
         originalItem.setBarCodeNumber(newItemData.getBarCodeNumber());
         originalItem.setModel(newItemData.getModel());
         originalItem.setLocationId(newItemData.getLocationId());
+        originalItem.setHomeLocation(newItemData.getHomeLocation());
         originalItem.setCount(newItemData.getCount());
         originalItem.setCountAvailable(newItemData.getCountAvailable());
         return itemRepository.save(originalItem);

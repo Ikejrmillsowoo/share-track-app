@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 @RestController
@@ -37,11 +40,10 @@ public class ItemController {
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-    @GetMapping("/id/{locationid}")
-    public ResponseEntity<Iterable<Item>> getItemByLocation(@PathVariable Long locationid){
-
-//       return new ResponseEntity<>(itemService.indexByLocation(locationid), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping("/id/{locationId}")
+    public ResponseEntity<Iterable<Item>> getItemByLocation(@PathVariable Long locationId){
+       return new ResponseEntity<>(itemService.indexByLocation(locationId), HttpStatus.OK);
+//        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //    @PostMapping("/add")

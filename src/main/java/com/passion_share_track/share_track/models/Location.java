@@ -31,20 +31,20 @@ public class Location {
     @JoinColumn(name = "LOCATION_LIST_ID")
     private LocationList locationList;
 
-    public Location(Long id,String name,String addressStreet, String addressCity,String addressState,String addressZip) {
+    public Location(String name,String addressStreet, String addressCity,String addressState,String addressZip) {
 //        this.inventory = inventory;
         this.addressZip = addressZip;
         this.addressState = addressState;
         this.addressCity = addressCity;
         this.addressStreet = addressStreet;
         this.name = name;
-        this.id = id;
+
     }
 
     public Location(){}
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {

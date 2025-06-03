@@ -7,15 +7,15 @@ import jakarta.persistence.*;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "ITEM_ID")
+    @Column(name = "ITEM_ID")
     private Long id;
-    @Column(name= "TYPE")
+    @Column(name = "TYPE")
     private String type;
-    @Column(name= "MODEL")
+    @Column(name = "MODEL")
     private String model;
-    @Column(name= "BARCODE_NUMBER")
+    @Column(name = "BARCODE_NUMBER")
     private String barCodeNumber;
-    @Column(name= "IMAGE_URL")
+    @Column(name = "IMAGE_URL")
     private String imageUrl;
     @Column(name = "COUNT")
     private Integer count;
@@ -23,15 +23,13 @@ public class Item {
     private Integer countAvailable;
 
     @ManyToOne
-    @JoinColumn(name="CURRENT_LOCATION_ID")
+    @JoinColumn(name = "CURRENT_LOCATION_ID")
     private Location location;
 
-//    @Column(name="HOME_LOCATION_ID")
+    //    @Column(name="HOME_LOCATION_ID")
     @ManyToOne
     @JoinColumn(name = "HOME_LOCATION_ID")
     private Location homeLocation;
-
-
 
 
     public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Location location, Location homeLocation) {
@@ -46,7 +44,8 @@ public class Item {
         this.homeLocation = homeLocation;
     }
 
-    public Item(){}
+    public Item() {
+    }
 
     public Long getId() {
         return id;
@@ -89,7 +88,7 @@ public class Item {
     }
 
     public Long getLocationId() {
-        return location.getId();
+        return (location != null) ? location.getId() : null;
     }
 
     public void setLocationId(Long locationId) {
