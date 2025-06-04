@@ -7,8 +7,14 @@ Organizations have users who are allowed to borrow items from other locations.
 Items are tracked based on the user's location.
 
 # Tech Stack
-Java
-Spring Boot
-Spring MVC and Security (eventually)
-H2 database (will soon move to MySQL
-JPA and Hibernate
+-Java
+-Spring Boot
+-Spring MVC and Security (eventually)
+-H2 database (will soon move to MySQL
+-JPA and Hibernate
+
+FrontEnd
+(Separate Repo)
+-HTML
+-Javascript
+-Css/ Bootstrap
