@@ -47,15 +47,15 @@ public class UserController {
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
-//        User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
-//        if (user != null){
-//            return ResponseEntity.ok(user);
-//        } else {
-//            return  ResponseEntity.status(401).body("Invalid credentials");
-//        }
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
+        User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+        if (user != null){
+            return ResponseEntity.ok(user);
+        } else {
+            return  ResponseEntity.status(401).body("Invalid credentials");
+        }
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationDTO userRegistrationDTO){

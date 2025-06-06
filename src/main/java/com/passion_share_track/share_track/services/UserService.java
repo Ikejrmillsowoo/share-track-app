@@ -72,9 +72,9 @@ public class UserService  {
         }
     }
 
-//    public User login(String username, String password){
-//        return userRepository.findByUsernameAndPassword(username, password);
-//    }
+    public User login(String username, String password){
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -32,8 +32,7 @@ public class Item {
     private Location homeLocation;
 
 
-    public Item(Long id, String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Location location, Location homeLocation) {
-        this.id = id;
+    public Item( String type, String model, String barCodeNumber, String imageUrl, Integer count, Integer countAvailable, Location location, Location homeLocation) {
         this.type = type;
         this.model = model;
         this.barCodeNumber = barCodeNumber;

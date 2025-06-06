@@ -1,6 +1,7 @@
 package com.passion_share_track.share_track.services;
 
 import com.passion_share_track.share_track.models.Item;
+import com.passion_share_track.share_track.models.Location;
 import com.passion_share_track.share_track.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,7 +46,7 @@ public class ItemService {
 //        return itemRepository.save(item);
 //    }
 
-    public Item create(String type, String model, String barCodeNumber, int count, int countAvailable, MultipartFile imageFile) throws IOException {
+    public Item create(String type, String model, String barCodeNumber, int count, int countAvailable, Location location, MultipartFile imageFile) throws IOException {
         // 1. Save image file to static folder
         String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
 //        Path imagePath = Paths.get("src/main/resources/static/images/" + fileName);
@@ -61,6 +62,7 @@ public class ItemService {
         item.setBarCodeNumber(barCodeNumber);
         item.setCount(count);
         item.setCountAvailable(countAvailable);
+        item.setLocation(location);
         item.setImageUrl("images/" + fileName);
 
         return itemRepository.save(item);

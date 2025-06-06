@@ -1,6 +1,7 @@
 package com.passion_share_track.share_track.controllers;
 
 import com.passion_share_track.share_track.models.Item;
+import com.passion_share_track.share_track.models.Location;
 import com.passion_share_track.share_track.repositories.ItemRepository;
 import com.passion_share_track.share_track.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,11 @@ public class ItemController {
             @RequestParam("barCodeNumber") String barCodeNumber,
             @RequestParam("count") int count,
             @RequestParam("countAvailable") int countAvailable,
+            @RequestParam("locationId") Location location,
             @RequestParam("image") MultipartFile imageFile
     ) throws IOException {
 
-        Item savedItem = itemService.create(type, model, barCodeNumber, count, countAvailable, imageFile);
+        Item savedItem = itemService.create(type, model, barCodeNumber, count, countAvailable, location, imageFile);
         return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
     }
 
