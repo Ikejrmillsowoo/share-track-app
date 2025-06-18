@@ -2,7 +2,10 @@ package com.passion_share_track.share_track.controllers;
 
 import com.passion_share_track.share_track.DTO.UserLoginDTO;
 import com.passion_share_track.share_track.DTO.UserRegistrationDTO;
+import com.passion_share_track.share_track.models.Cart;
 import com.passion_share_track.share_track.models.User;
+import com.passion_share_track.share_track.repositories.CartRepository;
+import com.passion_share_track.share_track.services.CartService;
 import com.passion_share_track.share_track.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CartService cartService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -44,6 +50,7 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<User> create(@RequestBody User user) {
         User newUser = userService.create(user);
+        Cart cart = cartService.createCart(user.getId());
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 

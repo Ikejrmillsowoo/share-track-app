@@ -1,7 +1,9 @@
 package com.passion_share_track.share_track.services;
 
 import com.passion_share_track.share_track.DTO.UserRegistrationDTO;
+import com.passion_share_track.share_track.models.Location;
 import com.passion_share_track.share_track.models.User;
+import com.passion_share_track.share_track.repositories.LocationRepository;
 import com.passion_share_track.share_track.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +22,9 @@ public class UserService  {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
 //    @Override
 //    public UserDetailsServiceA
 
@@ -35,18 +40,24 @@ public class UserService  {
         return userRepository.findById(id).get();
     }
 
-    public User create(User item) {
-        return userRepository.save(item);
+    public User create(User user) {
+        Location newLocation = locationRepository.findById(user.getLocationId())
+                .orElseThrow(() -> new RuntimeException("Location not found"));
+        user.setLocation(newLocation);
+        return userRepository.save(user);
     }
 
     public User update(Long id, User newUserData) {
         User originalUser = userRepository.findById(id).get();
+        Location newLocation = locationRepository.findById(newUserData.getLocationId())
+                .orElseThrow(() -> new RuntimeException("Location not found"));
         originalUser.setFirstName(newUserData.getFirstName());
         originalUser.setLastName(newUserData.getLastName());
         originalUser.setUserRole(newUserData.getUserRole());
-        originalUser.setLocationId(newUserData.getLocationId());
         originalUser.setUsername(newUserData.getUsername());
         originalUser.setPassword(newUserData.getPassword());
+        originalUser.setLocation(newLocation);
+
         return userRepository.save(originalUser);
     }
 

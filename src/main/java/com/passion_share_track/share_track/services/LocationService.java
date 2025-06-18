@@ -20,7 +20,8 @@ public class LocationService {
     }
 
     public Location show(Long id) {
-        return locationRepository.findById(id).get();
+        return locationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Location not found with ID: " + id));
     }
 
     public Location create(Location item) {

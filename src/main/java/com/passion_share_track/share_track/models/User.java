@@ -72,7 +72,16 @@ public class User {
     }
 
     public void setLocationId(Long locationId) {
-        this.location.setId(locationId);
+        Location location = new Location();
+        location.setId(locationId);
+        this.location = location;
+    }
+
+    public void setLocation(Location location){
+        this.location = location;
+    }
+    public Location getLocation(){
+        return  this.location;
     }
 
     public String getUsername() {
