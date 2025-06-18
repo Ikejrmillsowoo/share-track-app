@@ -2,8 +2,10 @@ package com.passion_share_track.share_track.services;
 
 import com.passion_share_track.share_track.models.Cart;
 import com.passion_share_track.share_track.models.CartItem;
+import com.passion_share_track.share_track.models.Item;
 import com.passion_share_track.share_track.repositories.CartItemRepository;
 import com.passion_share_track.share_track.repositories.CartRepository;
+import com.passion_share_track.share_track.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class CartService {
 
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     public Iterable<Cart> index() {
         return cartRepository.findAll();
@@ -52,9 +57,9 @@ public class CartService {
     public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
        Cart cart = cartRepository.findById(cartId)
                .orElseThrow(() -> new RuntimeException("Cart not found"));
-//
-//        CartItem item = new CartItem(itemId, quantity, cart);
-//        cart.().add(item); // this sets up the bidirectional relationship
+        Item item = itemRepository.getReferenceById(itemId);
+        CartItem cartItem = new CartItem(item, quantity, cart);
+       cart.setCartItem(cartItem); // this sets up the bidirectional relationship
 //
 //        cartRepository.save(cart); // cascades to CartItem
         return cart;

@@ -10,7 +10,4 @@ import java.util.List;
 //jpa
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-
-    //Find all items by location Id
-  //  List<Item> findByLocationId(Long locationid);
 }

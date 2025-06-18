@@ -40,7 +40,7 @@ public class CartItem {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public Cart getCart() { return cart; }
+    public Long getCartId() { return cart.getId(); }
     public void setCart(Cart cart) { this.cart = cart; }
 
 }

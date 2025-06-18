@@ -24,7 +24,7 @@ public class CartController {
     }
 
     // Add item to cart
-    @PostMapping("/{cartId}/add-item")
+    @PostMapping("/{cartId}/addItem")
     public ResponseEntity<Cart> addItemToCart(
             @PathVariable Long cartId,
             @RequestParam Long itemId,
