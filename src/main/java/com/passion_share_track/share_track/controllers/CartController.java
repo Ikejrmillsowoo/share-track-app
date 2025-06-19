@@ -2,7 +2,9 @@ package com.passion_share_track.share_track.controllers;
 
 import com.passion_share_track.share_track.models.Cart;
 import com.passion_share_track.share_track.models.CartItem;
+import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.services.CartService;
+import com.passion_share_track.share_track.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,14 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private UserService userService;
     //create a new cart
     @PostMapping("/create")
     public ResponseEntity<Cart> createCart(@RequestParam Long userId){
-        Cart newCart = cartService.createCart(userId);
+        User user = userService.show(userId);
+        Cart newCart = cartService.createCart(user);
         return ResponseEntity.ok(newCart);
     }
 
@@ -35,8 +41,8 @@ public class CartController {
 
     // get a user's cart
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Optional<Cart>> getCartByUser(@RequestParam Long userId){
-        Optional<Cart> cart = cartService.getCartByUserId(userId);
+    public ResponseEntity<Cart> getCartByUser(@RequestParam Long userId){
+        Cart cart = cartService.getCartByUserId(userId);
         return ResponseEntity.ok(cart);
     }
 

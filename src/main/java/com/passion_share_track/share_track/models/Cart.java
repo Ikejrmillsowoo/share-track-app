@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CART_ID")
     private Long id;
 
@@ -50,6 +50,10 @@ public class Cart {
         this.cartItem = cartItem;
     }
 
+    public Cart (User user){
+        this.user = user;
+    }
+
     public Cart(){}
 
     public Long getId() {
@@ -65,7 +69,9 @@ public class Cart {
     }
 
     public void setUserId(Long userId) {
-        this.user.setId(userId);
+        User user = new User();
+        user.setId(userId);
+        this.user = user;
     }
     public User getUser() {
         return user;

@@ -3,6 +3,7 @@ package com.passion_share_track.share_track.services;
 import com.passion_share_track.share_track.models.Cart;
 import com.passion_share_track.share_track.models.CartItem;
 import com.passion_share_track.share_track.models.Item;
+import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.repositories.CartItemRepository;
 import com.passion_share_track.share_track.repositories.CartRepository;
 import com.passion_share_track.share_track.repositories.ItemRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -47,9 +49,9 @@ public class CartService {
         return cartRepository.save(originalCart);
     }
     //create new cart
-    public Cart createCart(Long userId){
+    public Cart createCart(User user){
         Cart cart = new Cart();
-        cart.setUserId(userId);
+        cart.setUser(user);
         return cartRepository.save(cart);
     }
 
@@ -66,8 +68,15 @@ public class CartService {
     }
 
     //get user's Cart
-    public Optional<Cart> getCartByUserId(Long userId) {
-        return cartRepository.findById(userId);
+    public Cart getCartByUserId(Long userId) {
+       List<Cart> allCarts = cartRepository.findAll();
+       Cart userCart = new Cart();
+       for (Cart cart: allCarts){
+           if (Objects.equals(cart.getUser().getId(), userId)){
+               userCart = cart;
+           };
+       }
+        return userCart;
     }
 
     //list all cart Items

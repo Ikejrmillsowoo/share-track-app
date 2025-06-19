@@ -50,14 +50,18 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<User> create(@RequestBody User user) {
         User newUser = userService.create(user);
-        Cart cart = cartService.createCart(user.getId());
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
         User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
+
         if (user != null){
+            if (cartService.getCartByUserId(user.getId()) != null){
+                System.out.println(user.getFirstName() + "cart created");
+                cartService.createCart(user);
+            }
             return ResponseEntity.ok(user);
         } else {
             return  ResponseEntity.status(401).body("Invalid credentials");
