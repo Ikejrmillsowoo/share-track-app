@@ -58,7 +58,7 @@ public class UserController {
         User user = userService.login(userLoginDTO.getUsername(), userLoginDTO.getPassword());
 
         if (user != null){
-            if (cartService.getCartByUserId(user.getId()) != null){
+            if (cartService.getCartByUserId(user.getId()) == null){
                 System.out.println(user.getFirstName() + "cart created");
                 cartService.createCart(user);
             }
