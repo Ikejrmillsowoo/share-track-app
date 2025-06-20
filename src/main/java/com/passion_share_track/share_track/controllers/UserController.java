@@ -62,7 +62,8 @@ public class UserController {
                 System.out.println(user.getFirstName() + "cart created");
                 cartService.createCart(user);
             }
-            return ResponseEntity.ok(user);
+            Cart userCart = cartService.getCartByUserId(user.getId());
+            return ResponseEntity.ok(userCart);
         } else {
             return  ResponseEntity.status(401).body("Invalid credentials");
         }

@@ -30,12 +30,17 @@ public class CartController {
     }
 
     // Add item to cart
-    @PostMapping("/{cartId}/addItem")
+    @PostMapping("/addItem")
     public ResponseEntity<Cart> addItemToCart(
-            @PathVariable Long cartId,
+            @RequestParam User user,
             @RequestParam Long itemId,
             @RequestParam int quantity) {
-        Cart updatedCart = cartService.addItemToCart(cartId, itemId, quantity);
+        Cart userCart = cartService.getCartByUserId(user.getId());
+        if (userCart == null){
+            cartService.createCart(user);
+        };
+        assert userCart != null;
+        Cart updatedCart = cartService.addItemToCart(userCart.getId(), itemId, quantity);
         return ResponseEntity.ok(updatedCart);
     }
 
