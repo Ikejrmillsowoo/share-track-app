@@ -62,8 +62,8 @@ public class CartService {
         Item item = itemRepository.getReferenceById(itemId);
         CartItem cartItem = new CartItem(item, quantity, cart);
        cart.setCartItem(cartItem); // this sets up the bidirectional relationship
-//
-//        cartRepository.save(cart); // cascades to CartItem
+        cartRepository.save(cart);
+
         return cart;
     }
 

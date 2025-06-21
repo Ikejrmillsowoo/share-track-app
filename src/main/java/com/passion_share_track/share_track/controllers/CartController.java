@@ -1,5 +1,6 @@
 package com.passion_share_track.share_track.controllers;
 
+import com.passion_share_track.share_track.DTO.CartDTO;
 import com.passion_share_track.share_track.models.Cart;
 import com.passion_share_track.share_track.models.CartItem;
 import com.passion_share_track.share_track.models.User;
@@ -31,17 +32,34 @@ public class CartController {
 
     // Add item to cart
     @PostMapping("/addItem")
-    public ResponseEntity<Cart> addItemToCart(
-            @RequestParam User user,
-            @RequestParam Long itemId,
-            @RequestParam int quantity) {
-        Cart userCart = cartService.getCartByUserId(user.getId());
+    public ResponseEntity<?> addItemToCart(@RequestBody CartDTO cartRequest) {
+        Long userId = cartRequest.getUserId();
+        Long itemId = cartRequest.getItemId();
+        int quantity = cartRequest.getQuantity();
+
+        System.out.println("User ID :" + userId);
+        System.out.println("Item ID :" + itemId);
+        System.out.println("Quantity :" + quantity);
+
+        if (userId == null || itemId == null) {
+            return ResponseEntity.badRequest().body("User ID and Item ID must not be null.");
+        }
+
+        Cart userCart = cartService.getCartByUserId(userId);
         if (userCart == null){
-            cartService.createCart(user);
-        };
-        assert userCart != null;
-        Cart updatedCart = cartService.addItemToCart(userCart.getId(), itemId, quantity);
-        return ResponseEntity.ok(updatedCart);
+            User user = userService.show(userId);
+            userCart = cartService.createCart(user);
+        }
+
+        System.out.println("This is the user Cart: " + userCart);
+
+        try {
+            Cart updatedCart = cartService.addItemToCart(userCart.getId(), itemId, quantity);
+            return ResponseEntity.ok(updatedCart);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Failed to add item to cart: " + e.getMessage());
+        }
     }
 
     // get a user's cart
