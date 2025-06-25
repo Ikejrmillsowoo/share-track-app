@@ -7,12 +7,12 @@ import com.passion_share_track.share_track.models.User;
 import com.passion_share_track.share_track.repositories.CartItemRepository;
 import com.passion_share_track.share_track.repositories.CartRepository;
 import com.passion_share_track.share_track.repositories.ItemRepository;
+import com.passion_share_track.share_track.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -27,6 +27,9 @@ public class CartService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Iterable<Cart> index() {
         return cartRepository.findAll();
@@ -68,15 +71,21 @@ public class CartService {
     }
 
     //get user's Cart
-    public Cart getCartByUserId(Long userId) {
-       List<Cart> allCarts = cartRepository.findAll();
-       Cart userCart = new Cart();
-       for (Cart cart: allCarts){
-           if (Objects.equals(cart.getUser().getId(), userId)){
-               userCart = cart;
-           };
-       }
-        return userCart;
+    public Optional<Cart> getCartByUserId(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID must not be null.");
+        }
+        return cartRepository.findByUser_Id(userId);
+//                .orElseThrow(() ->
+//                new NoSuchElementException("No cart found for user with ID: " + userId)
+//        );
+//        List<Cart> allCarts = cartRepository.findAll();
+//       for (Cart cart: allCarts){
+//           if (Objects.equals(cart.getUser().getId(), userId)){
+//               return cart;
+//           };
+//       }
+//        return null;
     }
 
     //list all cart Items

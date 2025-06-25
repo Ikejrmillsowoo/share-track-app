@@ -45,16 +45,17 @@ public class CartController {
             return ResponseEntity.badRequest().body("User ID and Item ID must not be null.");
         }
 
-        Cart userCart = cartService.getCartByUserId(userId);
+        Cart userCart = cartService.getCartByUserId(userId).get();
         if (userCart == null){
             User user = userService.show(userId);
             userCart = cartService.createCart(user);
         }
 
         System.out.println("This is the user Cart: " + userCart);
+        Long cartId = userCart.getId();
 
         try {
-            Cart updatedCart = cartService.addItemToCart(userCart.getId(), itemId, quantity);
+            Cart updatedCart = cartService.addItemToCart(cartId, itemId, quantity);
             return ResponseEntity.ok(updatedCart);
         } catch (Exception e) {
             e.printStackTrace();
