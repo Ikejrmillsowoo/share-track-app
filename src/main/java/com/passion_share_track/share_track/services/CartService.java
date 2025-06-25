@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -60,10 +61,13 @@ public class CartService {
 
     // add item to cart
     public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
-       Cart cart = cartRepository.findById(cartId)
-               .orElseThrow(() -> new RuntimeException("Cart not found"));
+       Cart cart = cartRepository.findById(cartId).get();
+        System.out.println("cartisian" + cart);
         Item item = itemRepository.getReferenceById(itemId);
         CartItem cartItem = new CartItem(item, quantity, cart);
+        cartItem.setCart(cart);
+        cartItemRepository.save(cartItem);
+        cart.getCartItem().setItem(item);
        cart.setCartItem(cartItem); // this sets up the bidirectional relationship
         cartRepository.save(cart);
 
@@ -71,21 +75,22 @@ public class CartService {
     }
 
     //get user's Cart
-    public Optional<Cart> getCartByUserId(Long userId) {
+    public Cart getCartByUserId(Long userId) {
         if (userId == null) {
             throw new IllegalArgumentException("User ID must not be null.");
         }
+        Cart userCart = cartRepository.findByUser_Id(userId);
+        if (userCart != null) {
+            return userCart;
+        }
+        // Create new cart if it doesn't exist
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found with ID: " + userId));
+
+        createCart(user);
+
         return cartRepository.findByUser_Id(userId);
-//                .orElseThrow(() ->
-//                new NoSuchElementException("No cart found for user with ID: " + userId)
-//        );
-//        List<Cart> allCarts = cartRepository.findAll();
-//       for (Cart cart: allCarts){
-//           if (Objects.equals(cart.getUser().getId(), userId)){
-//               return cart;
-//           };
-//       }
-//        return null;
+
     }
 
     //list all cart Items
