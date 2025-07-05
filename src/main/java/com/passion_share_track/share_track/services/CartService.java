@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -61,21 +62,54 @@ public class CartService {
 
     // add item to cart
     public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
-       Cart cart = cartRepository.findById(cartId).get();
+       // check for cart exists
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NoSuchElementException("Cart not found with ID: " + cartId));
+// pull item
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new NoSuchElementException("Item not found with ID: " + itemId));
+
         System.out.println("cartisian" + cart);
-        Item item = itemRepository.getReferenceById(itemId);
-        CartItem cartItem = new CartItem(item, quantity, cart);
-        cartItem.setCart(cart);
-        cartItemRepository.save(cartItem);
-        cart.getCartItem().setItem(item);
-       cart.setCartItem(cartItem); // this sets up the bidirectional relationship
+//        Item item = itemRepository.getReferenceById(itemId);
+        if (item.getCountAvailable() <= 0){
+            throw new IllegalStateException("Item is out of stock.");
+        }
+        //Deduct one item from count
+        item.setCountAvailable(item.getCountAvailable() - quantity);
+
+        // Set item's home location to the user's location
+        if (cart.getUser() != null && cart.getUser().getLocation() != null) {
+            item.setHomeLocation(cart.getUser().getLocation());
+        } else {
+            throw new IllegalStateException("User or user's location is missing.");
+        }
+        System.out.println(item);
+        boolean found = false;
+        //updating cartItem quntity - avoiding multiple entries for same item in cart
+        for (CartItem cartItem : cart.getCartItems()) {
+            if (Objects.equals(cartItem.getItem().getId(), item.getId())) {
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            CartItem newCartItem = new CartItem(item, quantity, cart);
+            cartItemRepository.save(newCartItem);
+            cart.getCartItems().add(newCartItem);
+        }
+
+        itemRepository.save(item);
         cartRepository.save(cart);
 
-        return cart;
+        return cartRepository.save(cart);
     }
+
 
     //get user's Cart
     public Cart getCartByUserId(Long userId) {
+        System.out.println(userId);
         if (userId == null) {
             throw new IllegalArgumentException("User ID must not be null.");
         }
@@ -89,7 +123,7 @@ public class CartService {
 
         createCart(user);
 
-        return cartRepository.findByUser_Id(userId);
+        return cartRepository.save(new Cart(user));
 
     }
 

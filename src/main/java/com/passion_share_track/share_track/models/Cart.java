@@ -18,9 +18,9 @@ public class Cart {
 //    @Column(name = "CART_LOCATION_ID")
 //    private Long cartLocationId;
 
-    @ManyToOne
-    @JoinColumn(name = "CART_ITEM_ID")
-    private CartItem cartItem;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "CART_ITEM_ID")
+    private List<CartItem> cartItems = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<CartItem> items = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Cart {
 
     public Cart( User user, CartItem cartItem) {
         this.user = user;
-        this.cartItem = cartItem;
+        this.cartItems.add(cartItem);
     }
 
     public Cart (User user){
@@ -81,11 +81,11 @@ public class Cart {
         this.user = user;
     }
 
-    public CartItem getCartItem() {
-        return cartItem;
+    public List<CartItem> getCartItems() {
+        return this.cartItems;
     }
 
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
+    public void setCartItem(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 }

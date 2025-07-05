@@ -2,8 +2,11 @@ package com.passion_share_track.share_track.models;
 
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +123,10 @@ public class Item {
 
     public Location getHomeLocation() {
         return homeLocation;
+    }
+
+    public Long getHomeLocationId() {
+        return homeLocation != null ? homeLocation.getId() : null;
     }
 
     public void setHomeLocation(Location homeLocation) {
