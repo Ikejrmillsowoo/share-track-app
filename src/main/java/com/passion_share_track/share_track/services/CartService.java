@@ -45,12 +45,15 @@ public class CartService {
         return cartRepository.save(item);
     }
 
-    public Cart update(Long id, Cart newCartData) {
-        Cart originalCart = cartRepository.findById(id).get();
-//        originalCart.set(newCartData.getFirstName());
-//        originalCart.setLastName(newCartData.getLastName());
-//        originalCart.setUserRole(newUserData.getUserRole());
-//        originalCart.setLocationId(newUserData.getLocationId());
+    public Cart update(Long userId, CartItem cartItem) {
+        Cart originalCart = cartRepository.findById(userId).get();
+        List<CartItem> itemsInCart = originalCart.getCartItems();
+        for (CartItem itemToUpdate: itemsInCart){
+            if (itemToUpdate.getId().equals(cartItem.getId())){
+                itemToUpdate.getItem().setCountAvailable(cartItem.getQuantity());
+                itemToUpdate.getItem().setHomeLocation(cartItem.getItem().getHomeLocation());
+            }
+        }
         return cartRepository.save(originalCart);
     }
     //create new cart
@@ -65,12 +68,12 @@ public class CartService {
        // check for cart exists
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new NoSuchElementException("Cart not found with ID: " + cartId));
-// pull item
+    // pull item
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NoSuchElementException("Item not found with ID: " + itemId));
 
         System.out.println("cartisian" + cart);
-//        Item item = itemRepository.getReferenceById(itemId);
+        //        Item item = itemRepository.getReferenceById(itemId);
         if (item.getCountAvailable() <= 0){
             throw new IllegalStateException("Item is out of stock.");
         }
@@ -144,6 +147,25 @@ public class CartService {
         } else {
             return false; // no item found to delete
         }
+    }
+
+    public Cart removeItemFromCart(Long cartId, Long itemId, int quantity) {
+        // check for cart exists
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NoSuchElementException("Cart not found with ID: " + cartId));
+        // pull item
+
+        Item itemToBeRemoved = itemRepository.findById(itemId)
+                .orElseThrow(() -> new NoSuchElementException("noe item found") );
+        List <CartItem> currentCartItems = cart.getCartItems();
+        for (CartItem cartItem: currentCartItems){
+            if (cartItem.getItem().equals(itemToBeRemoved)){
+                cartItem.setQuantity(cartItem.getQuantity()- quantity);
+                itemToBeRemoved.setCountAvailable(itemToBeRemoved.getCountAvailable()+quantity);
+            }
+        }
+        itemRepository.save(itemToBeRemoved);
+        return cartRepository.save(cart);
     }
 
 }

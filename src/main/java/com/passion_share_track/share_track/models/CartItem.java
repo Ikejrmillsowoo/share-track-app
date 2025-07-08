@@ -23,7 +23,6 @@ public class CartItem {
     private Cart cart;
 
     // Constructors
-    public CartItem() {}
 
     public CartItem(Item item, int quantity, Cart cart) {
         this.item = item;
