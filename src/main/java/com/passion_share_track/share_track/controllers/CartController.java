@@ -79,8 +79,8 @@ public class CartController {
     }
 
     //Return Item in cart
-    @PostMapping("/cart/return/${itemId}")
-    public ResponseEntity<List<CartItem>> returnItemInCart(@PathVariable Long cartId, Long itemId, int quantity){
+    @PostMapping("/cart/return/{itemId}")
+    public ResponseEntity<List<CartItem>> returnItemInCart(@RequestParam Long cartId,@PathVariable Long itemId,@RequestParam int quantity){
         List<CartItem> items = cartService.removeItemFromCart(cartId, itemId, quantity).getCartItems();
         return ResponseEntity.ok(items);
     }
