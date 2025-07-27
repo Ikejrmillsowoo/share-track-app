@@ -64,7 +64,7 @@ public class CartService {
     }
 
     // add item to cart
-    public Cart addItemToCart(Long cartId, Long itemId, int quantity) {
+    public Cart addItemToCart(Long cartId, int quantity, Long itemId) {
        // check for cart exists
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new NoSuchElementException("Cart not found with ID: " + cartId));
@@ -73,12 +73,19 @@ public class CartService {
                 .orElseThrow(() -> new NoSuchElementException("Item not found with ID: " + itemId));
 
         System.out.println("cartisian" + cart);
-        //        Item item = itemRepository.getReferenceById(itemId);
-        if (item.getCountAvailable() <= 0){
+        //Item item = itemRepository.getReferenceById(itemId);
+        Integer available = item.getCountAvailable();
+        if (available == null || available <= 0) {
             throw new IllegalStateException("Item is out of stock.");
         }
+        if (quantity > available) {
+            throw new IllegalStateException("Requested quantity exceeds available stock.");
+        }
+
+
         //Deduct one item from count
-        item.setCountAvailable(item.getCountAvailable() - quantity);
+        item.setCountAvailable(available - quantity);
+
 
         // Set item's home location to the user's location
         if (cart.getUser() != null && cart.getUser().getLocation() != null) {
@@ -88,7 +95,7 @@ public class CartService {
         }
         System.out.println(item);
         boolean found = false;
-        //updating cartItem quntity - avoiding multiple entries for same item in cart
+        //updating cartItem quantity - avoiding multiple entries for same item in cart
         for (CartItem cartItem : cart.getCartItems()) {
             if (Objects.equals(cartItem.getItem().getId(), item.getId())) {
                 cartItem.setQuantity(cartItem.getQuantity() + quantity);

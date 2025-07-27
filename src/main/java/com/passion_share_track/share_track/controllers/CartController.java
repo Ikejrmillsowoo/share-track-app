@@ -55,7 +55,7 @@ public class CartController {
         Long cartId = userCart.getId();
 
         try {
-            Cart updatedCart = cartService.addItemToCart(cartId, itemId, quantity);
+            Cart updatedCart = cartService.addItemToCart(cartId, quantity, itemId);
             return ResponseEntity.ok(updatedCart);
         } catch (Exception e) {
             e.printStackTrace();

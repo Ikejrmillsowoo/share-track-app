@@ -30,6 +30,10 @@ public class CartItem {
         this.cart = cart;
     }
 
+    public CartItem(){
+
+    }
+
     // Getters and Setters
     public Long getId() { return id; }
 
